@@ -1,6 +1,5 @@
 import { getUseCurrentLocation, saveLocation } from "@/lib/supabase/location-service";
 
-
 let watcherId = -1;
 
 export function startLocationWatching() {
@@ -18,7 +17,7 @@ export function startLocationWatching() {
 }
 
 export function stopLocationWatching() {
-  if (watcherId &&) {
+  if (watcherId) {
     console.log("[LocationWatcher] stop watching ...");
     window.navigator.geolocation.clearWatch(watcherId);
     watcherId = -1;

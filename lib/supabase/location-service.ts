@@ -1,4 +1,4 @@
-import { addressToShortString, getAddress } from "@/lib/geo/address.service";
+import { addressToShortString, getAddress } from "@/lib/geo/address-service";
 import { Position, centerOfGermany, toPostGisPoint } from "@/lib/geo/geo.types";
 import { getUserId } from "@/lib/supabase/auth-service";
 import { DealFilter } from "@/lib/supabase/deal-service";
