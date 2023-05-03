@@ -1,10 +1,10 @@
-import Footer from "@/components/ui/nav/Footer";
-import Header from "@/components/ui/nav/Header";
+import Footer from "@/components/nav/Footer";
+import Header from "@/components/nav/Header";
 import { getSession } from "@/lib/supabase/auth-service";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
 
-const font = Ubuntu({ weight: "400", subsets: ["latin"] });
+const font = Ubuntu({ weight: "300", subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",

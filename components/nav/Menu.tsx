@@ -1,5 +1,6 @@
 "use client";
 
+import LegalFooter from "@/components/nav/LegalFooter";
 import CrossIcon from "@/components/ui/icons/CrossIcon";
 import GearIcon from "@/components/ui/icons/GearIcon";
 import LoginIcon from "@/components/ui/icons/LoginIcon";
@@ -7,7 +8,6 @@ import LogoutIcon from "@/components/ui/icons/LogoutIcon";
 import MenuIcon from "@/components/ui/icons/MenuIcon";
 import NewsIcon from "@/components/ui/icons/NewsIcon";
 import RegistrationIcon from "@/components/ui/icons/RegistrationIcon";
-import LegalFooter from "@/components/ui/nav/LegalFooter";
 import Link from "next/link";
 import { useState } from "react";
 

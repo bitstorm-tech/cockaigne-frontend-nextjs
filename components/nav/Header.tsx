@@ -1,5 +1,5 @@
-import MemberStatus from "@/components/ui/nav/MemberStatus";
-import Menu from "@/components/ui/nav/Menu";
+import MemberStatus from "@/components/nav/MemberStatus";
+import Menu from "@/components/nav/Menu";
 import { Session } from "@/lib/supabase/auth-service";
 import Link from "next/link";
 
