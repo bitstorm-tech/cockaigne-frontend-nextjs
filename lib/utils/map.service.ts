@@ -13,7 +13,7 @@ import Circle from "ol/geom/Circle";
 import TileLayer from "ol/layer/Tile";
 import VectorLayer from "ol/layer/Vector";
 import "ol/ol.css";
-import { useGeographic } from "ol/proj";
+import { useGeographic as geographic } from "ol/proj";
 import OSM from "ol/source/OSM";
 import VectorSource from "ol/source/Vector";
 import { Fill, Icon, Stroke, Style } from "ol/style";
@@ -46,7 +46,7 @@ const updateDeals = debounce(async (extent: Extent) => {
 }, 1000);
 
 export async function initMapService(htmlElementId: string) {
-  useGeographic();
+  geographic();
   const location = await getLocation();
   const center = toOpenLayersCoordinate(location);
 
