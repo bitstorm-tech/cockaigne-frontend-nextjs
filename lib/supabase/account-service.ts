@@ -1,8 +1,8 @@
-import { centerOfGermany, type Position, toPostGisPoint } from "~/lib/geo/geo.types";
-import { getUserId } from "~/lib/supabase/auth-service";
-import { getLocationFromAddress } from "~/lib/supabase/location-service";
-import type { Account, AccountInsert, AccountUpdate } from "./public-types";
-import { supabase, translateError } from "./supabase-client";
+import { Position, centerOfGermany, toPostGisPoint } from "@/lib/geo/geo.types";
+import { getUserId } from "@/lib/supabase/auth-service";
+import { getLocationFromAddress } from "@/lib/supabase/location-service";
+import { Account, AccountInsert, AccountUpdate } from "@/lib/supabase/public-types";
+import { supabase, translateError } from "@/lib/supabase/supabase-client";
 
 export const EMPTY_ACCOUNT: Account = {
   age: 0,

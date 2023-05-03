@@ -1,11 +1,7 @@
-import remove from "lodash/remove";
-import { Extent } from "ol/extent";
-import { Position } from "~/lib/geo/geo.types";
-import { getUserId } from "~/lib/supabase/auth-service";
-import { getDealImages } from "~/lib/supabase/storage-service";
-import dateTimeUtils, { getDateTimeAsIsoString } from "~/lib/utils/date-time.utils";
-import { createFilterByCurrentLocationAndSelectedCategories } from "./location-service";
-import type {
+import { Position } from "@/lib/geo/geo.types";
+import { getUserId } from "@/lib/supabase/auth-service";
+import { createFilterByCurrentLocationAndSelectedCategories } from "@/lib/supabase/location-service";
+import {
   ActiveDeal,
   Deal,
   DealUpsert,
@@ -14,8 +10,12 @@ import type {
   GetActiveDealsWithinExtentFunctionArguments,
   Like,
   PastDeal
-} from "./public-types";
-import { supabase } from "./supabase-client";
+} from "@/lib/supabase/public-types";
+import { getDealImages } from "@/lib/supabase/storage-service";
+import { supabase } from "@/lib/supabase/supabase-client";
+import { getDateTimeAsIsoString, getTimeString } from "@/lib/utils/date-time.utils";
+import { remove } from "lodash";
+import { Extent } from "ol/extent";
 
 export interface DealFilter {
   location?: Position;
@@ -252,8 +252,8 @@ export async function enrichDealWithImageUrls(deals: FutureActivePastDeal[]): Pr
 }
 
 export function rotateByCurrentTime(deals: ActiveDeal[]): ActiveDeal[] {
-  const nowTime = dateTimeUtils.getTimeString();
-  const dealsAfterNow = remove(deals, (deal) => nowTime > dateTimeUtils.getTimeString(deal.start!));
+  const nowTime = getTimeString();
+  const dealsAfterNow = remove(deals, (deal) => nowTime > getTimeString(deal.start!));
 
   return [...deals, ...dealsAfterNow];
 }

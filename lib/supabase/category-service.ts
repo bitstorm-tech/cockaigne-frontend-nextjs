@@ -1,6 +1,6 @@
-import { getUserId } from "~/lib/supabase/auth-service";
-import type { Category } from "./public-types";
-import { supabase } from "./supabase-client";
+import { getUserId } from "@/lib/supabase/auth-service";
+import { Category } from "@/lib/supabase/public-types";
+import { supabase } from "@/lib/supabase/supabase-client";
 
 export async function getCategories(): Promise<Category[]> {
   const { data } = await supabase.from("categories").select();

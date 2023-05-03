@@ -1,8 +1,8 @@
-import { addressToShortString, getAddress } from "~/lib/geo/address.service";
-import { centerOfGermany, Position, toPostGisPoint } from "~/lib/geo/geo.types";
-import { getUserId } from "~/lib/supabase/auth-service";
-import { DealFilter } from "~/lib/supabase/deal-service";
-import { supabase } from "./supabase-client";
+import { addressToShortString, getAddress } from "@/lib/geo/address.service";
+import { Position, centerOfGermany, toPostGisPoint } from "@/lib/geo/geo.types";
+import { getUserId } from "@/lib/supabase/auth-service";
+import { DealFilter } from "@/lib/supabase/deal-service";
+import { supabase } from "@/lib/supabase/supabase-client";
 
 export async function getUseCurrentLocation(): Promise<boolean> {
   const userId = await getUserId();

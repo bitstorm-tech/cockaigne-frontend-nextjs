@@ -1,6 +1,6 @@
-import { getUserId } from "~/lib/supabase/auth-service";
-import type { ReportedDeal } from "./public-types";
-import { supabase } from "./supabase-client";
+import { getUserId } from "@/lib/supabase/auth-service";
+import { ReportedDeal } from "@/lib/supabase/public-types";
+import { supabase } from "@/lib/supabase/supabase-client";
 
 export async function getReport(dealId: string): Promise<ReportedDeal | undefined> {
   const userId = await getUserId();

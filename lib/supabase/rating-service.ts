@@ -1,5 +1,5 @@
-import { DealerRatingInsert, DealerRatingWithUsername } from "~/lib/supabase/public-types";
-import { supabase } from "./supabase-client";
+import { DealerRatingInsert, DealerRatingWithUsername } from "@/lib/supabase/public-types";
+import { supabase } from "@/lib/supabase/supabase-client";
 
 export async function getRatings(dealerId: string): Promise<DealerRatingWithUsername[]> {
   const { data } = await supabase.from("dealer_ratings_view").select().eq("dealer_id", dealerId);

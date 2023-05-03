@@ -1,6 +1,6 @@
+import { getUserId } from "@/lib/supabase/auth-service";
+import { supabase } from "@/lib/supabase/supabase-client";
 import { v4 as uuid } from "uuid";
-import { getUserId } from "~/lib/supabase/auth-service";
-import { supabase } from "~/lib/supabase/supabase-client";
 
 const BUCKET_DEALER_IMAGES = "dealer-images";
 const BUCKET_PROFILE_IMAGES = "profile-images";
