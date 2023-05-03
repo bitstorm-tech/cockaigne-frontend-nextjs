@@ -2,11 +2,11 @@ import { getUserId } from "@/lib/supabase/auth-service";
 import { Dealer, FavoriteDealer } from "@/lib/supabase/public-types";
 import { supabase } from "@/lib/supabase/supabase-client";
 
-export async function getDealer(dealerId: string): Promise<Dealer | null> {
+export async function getDealer(dealerId: string): Promise<Dealer | undefined> {
   const { data } = await supabase.from("dealer_view").select().eq("id", dealerId).single();
 
   if (!data) {
-    return null;
+    return;
   }
 
   return data;

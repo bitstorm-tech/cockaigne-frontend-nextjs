@@ -5,7 +5,6 @@ import {
   ActiveDeal,
   Deal,
   DealUpsert,
-  FutureActivePastDeal,
   FutureDeal,
   GetActiveDealsWithinExtentFunctionArguments,
   Like,
@@ -239,7 +238,7 @@ export async function getHotDeals(): Promise<ActiveDeal[]> {
   return enrichDealWithImageUrls(activeDealsResult.data);
 }
 
-export async function enrichDealWithImageUrls(deals: FutureActivePastDeal[]): Promise<FutureActivePastDeal[]> {
+export async function enrichDealWithImageUrls<T extends ActiveDeal | Deal>(deals: T[]): Promise<T[]> {
   for (const deal of deals) {
     if (!deal.id || !deal.dealer_id) {
       console.error("Can't enrich deal with image URLs -> either deal or dealer ID unknown");

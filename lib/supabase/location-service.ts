@@ -2,6 +2,7 @@ import { addressToShortString, getAddress } from "@/lib/geo/address-service";
 import { Position, centerOfGermany, toPostGisPoint } from "@/lib/geo/geo.types";
 import { getUserId } from "@/lib/supabase/auth-service";
 import { DealFilter } from "@/lib/supabase/deal-service";
+import { Location } from "@/lib/supabase/public-types";
 import { supabase } from "@/lib/supabase/supabase-client";
 
 export async function getUseCurrentLocation(): Promise<boolean> {
@@ -34,8 +35,8 @@ export async function getLocation(): Promise<Position> {
     return centerOfGermany;
   }
 
-  const longitude = data.location.coordinates[0];
-  const latitude = data.location.coordinates[1];
+  const longitude = (data.location as Location).coordinates[0];
+  const latitude = (data.location as Location).coordinates[1];
 
   return {
     longitude,
@@ -70,8 +71,8 @@ export async function createFilterByCurrentLocationAndSelectedCategories(): Prom
     radius: data.search_radius / 2 ?? 250,
     location: data.location
       ? {
-          longitude: data.location.coordinates[0],
-          latitude: data.location.coordinates[1]
+          longitude: (data.location as Location).coordinates[0],
+          latitude: (data.location as Location).coordinates[1]
         }
       : centerOfGermany
   };

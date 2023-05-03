@@ -2,7 +2,7 @@ import { Position, fromOpenLayersCoordinate, toOpenLayersCoordinate } from "@/li
 import { stopLocationWatching } from "@/lib/geo/location-watcher";
 import { DealFilter, getDealsByFilter } from "@/lib/supabase/deal-service";
 import { getLocation, saveLocation, saveUseCurrentLocation } from "@/lib/supabase/location-service";
-import { ActiveDeal } from "@/lib/supabase/public-types";
+import { ActiveDeal, Location } from "@/lib/supabase/public-types";
 import { debounce } from "lodash";
 import { Feature, View } from "ol";
 import Map from "ol/Map";
@@ -124,7 +124,7 @@ function setRadius(radius: number) {
 function setDeals(deals: ActiveDeal[]) {
   dealLayerSource.clear(true);
   deals.map((deal) => {
-    const coordinate = deal.location?.coordinates;
+    const coordinate = (deal.location as Location)?.coordinates;
     if (coordinate) {
       const icon = createIcon(deal, coordinate);
       dealLayerSource.addFeature(icon);
