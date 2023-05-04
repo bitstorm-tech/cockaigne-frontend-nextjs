@@ -2,7 +2,8 @@ import { centerOfGermany, Position, toPostGisPoint } from "@/lib/geo/geo.types";
 import { getUserId } from "@/lib/supabase/auth-service";
 import { getLocationFromAddress } from "@/lib/supabase/location-service";
 import { Account, AccountInsert, AccountUpdate } from "@/lib/supabase/public-types";
-import { supabase, translateError } from "@/lib/supabase/supabase-client";
+import { supabase } from "@/lib/supabase/supabase-client";
+import { translateError } from "@/lib/utils/error-utils";
 
 export const EMPTY_ACCOUNT: Account = {
   age: 0,
@@ -122,7 +123,6 @@ export async function getUsername(userId?: string): Promise<string> {
     return "";
   }
 
-  const supabase = await getSupabaseClient();
   const { data, error } = await supabase.from("accounts").select("username").eq("id", userId).single();
 
   if (error) {

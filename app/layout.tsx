@@ -25,8 +25,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={font.className}>
         <SupabaseProvider session={data.session}>
           <SupabaseListener serverAccessToken={data.session?.access_token} />
+          {/* @ts-expect-error Server Component */}
           <Header />
           {children}
+          {/* @ts-expect-error Server Component */}
           <Footer />
         </SupabaseProvider>
       </body>
