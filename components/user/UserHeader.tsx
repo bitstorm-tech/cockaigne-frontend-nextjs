@@ -4,7 +4,7 @@ import FavoriteDealerBadge from "@/components/user/FavoriteDealerBadge";
 import HotsBadge from "@/components/user/HotsBadge";
 import ProfileImage from "@/components/user/ProfileImage";
 
-export default function UserHeader() {
+export default function UserHeader({ username = "", address = [] }) {
   return (
     <div className="flex justify-between text-[#dbdce6]">
       <div className="flex w-full justify-between">
@@ -14,7 +14,7 @@ export default function UserHeader() {
             <HotsBadge number={2} />
             <FavoriteDealerBadge number={3} />
           </div>
-          <span className="text-2xl">{"#Hugo#"}</span>
+          <span className="text-2xl">{username}</span>
           <span className="flex flex-col gap-2 text-sm">
             <b>Dein Standort</b>
             <span className="flex gap-1">

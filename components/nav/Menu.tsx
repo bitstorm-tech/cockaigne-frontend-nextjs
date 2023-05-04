@@ -1,6 +1,6 @@
 "use client";
-
 import LegalFooter from "@/components/nav/LegalFooter";
+import { useSupabase } from "@/components/supabase/supabase-provider";
 import CrossIcon from "@/components/ui/icons/CrossIcon";
 import GearIcon from "@/components/ui/icons/GearIcon";
 import LoginIcon from "@/components/ui/icons/LoginIcon";
@@ -8,27 +8,30 @@ import LogoutIcon from "@/components/ui/icons/LogoutIcon";
 import MenuIcon from "@/components/ui/icons/MenuIcon";
 import NewsIcon from "@/components/ui/icons/NewsIcon";
 import RegistrationIcon from "@/components/ui/icons/RegistrationIcon";
+import { logError } from "@/lib/utils/error-utils";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Menu({ isLoggendIn }: { isLoggendIn: boolean }) {
   const [showMenu, setShowMenu] = useState(false);
+  const { supabase } = useSupabase();
+  const router = useRouter();
 
-  async function handleLogout() {}
-
-  function toggleMenu() {
-    setShowMenu(!showMenu);
+  async function handleLogout() {
+    const { error } = await supabase.auth.signOut();
+    logError(error, "Can't logout");
   }
 
   return (
     <div className="absolute right-2">
       <div className="relative right-2 z-20 flex cursor-pointer text-[#69828c]">
         {showMenu ? (
-          <button onClick={toggleMenu}>
+          <button onClick={() => setShowMenu(!showMenu)}>
             <CrossIcon size={1.85} />
           </button>
         ) : (
-          <button onClick={toggleMenu}>
+          <button onClick={() => setShowMenu(!showMenu)}>
             <MenuIcon size={1.85} />
           </button>
         )}

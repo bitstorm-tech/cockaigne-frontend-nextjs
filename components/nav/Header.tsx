@@ -1,9 +1,11 @@
 import MemberStatus from "@/components/nav/MemberStatus";
 import Menu from "@/components/nav/Menu";
-import { Session } from "@/lib/supabase/auth-service";
+import { getServerSession } from "@/lib/supabase/supabase-client-server";
 import Link from "next/link";
 
-export default function Header({ session }: { session: Session }) {
+export default async function Header() {
+  const session = await getServerSession();
+
   return (
     <>
       <nav className="flex items-center border-b-[0.01rem] border-[#556368] px-4 py-2 md:px-52">
@@ -12,9 +14,9 @@ export default function Header({ session }: { session: Session }) {
             <Link href="/">
               <img loading="lazy" className="h-7" src="/images/logo.svg" alt="Bildmarke" />
             </Link>
-            {session.isDealer || <MemberStatus session={session} />}
+            {session?.isDealer || <MemberStatus isPro={!!session} />}
           </div>
-          <Menu isLoggendIn={!!session.userId} />
+          <Menu isLoggendIn={!!session} />
           {/*<div className="z-20 flex cursor-pointer text-[#69828c]">*/}
           {/*  {showMenu ? (*/}
           {/*    <button onClick={toggleMenu}>*/}

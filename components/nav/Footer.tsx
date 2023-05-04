@@ -2,13 +2,15 @@ import DealsOverviewIcon from "@/components/ui/icons/DealsOverviewIcon";
 import HomeIcon from "@/components/ui/icons/HomeIcon";
 import MapIcon from "@/components/ui/icons/MapIcon";
 import TopIcon from "@/components/ui/icons/TopIcon";
-import { Session } from "@/lib/supabase/auth-service";
+import { getServerSession } from "@/lib/supabase/supabase-client-server";
 import Link from "next/link";
 
-export default function Footer({ session }: { session: Session }) {
+export default async function Footer() {
+  const session = await getServerSession();
+
   return (
     <footer className="btm-nav btm-nav-sm h-12 border-t-[0.01rem] border-t-[#556368] text-[#69828c]">
-      {session.isDealer ? (
+      {session?.isDealer ? (
         <>
           <Link href="/">
             <HomeIcon outline={false} />

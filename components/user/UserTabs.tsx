@@ -21,8 +21,6 @@ export default function UserTabs() {
           <HeartIcon outline={tabIndex !== 2} />
         </button>
       </div>
-      <button onClick={() => setTabIndex(Math.random)}>Click mich!</button>
-      <p>{tabIndex}</p>
       {/*{tabIndex === 0 && <UserDealList deals={deals()} emptyContent={emptyContent} />}*/}
       {/*{tabIndex === 1 && <UserHotDealList />}*/}
       {/*{tabIndex === 2 && <UserFavoriteDealerList />}*/}

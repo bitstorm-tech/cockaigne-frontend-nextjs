@@ -1,4 +1,4 @@
-import { Position, centerOfGermany, toPostGisPoint } from "@/lib/geo/geo.types";
+import { centerOfGermany, Position, toPostGisPoint } from "@/lib/geo/geo.types";
 import { getUserId } from "@/lib/supabase/auth-service";
 import { getLocationFromAddress } from "@/lib/supabase/location-service";
 import { Account, AccountInsert, AccountUpdate } from "@/lib/supabase/public-types";
@@ -122,6 +122,7 @@ export async function getUsername(userId?: string): Promise<string> {
     return "";
   }
 
+  const supabase = await getSupabaseClient();
   const { data, error } = await supabase.from("accounts").select("username").eq("id", userId).single();
 
   if (error) {
