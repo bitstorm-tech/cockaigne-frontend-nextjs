@@ -2,7 +2,7 @@ import { Database } from "@/lib/supabase/generated-types";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { cookies, headers } from "next/headers";
 
-export function createSupabaseServerClient() {
+export function getSupabaseServerClient() {
   return createServerComponentSupabaseClient<Database>({ headers, cookies });
 }
 
@@ -12,7 +12,7 @@ export interface Session {
 }
 
 export async function getServerSession(): Promise<Session | undefined> {
-  const { error, data } = await createSupabaseServerClient().auth.getSession();
+  const { error, data } = await getSupabaseServerClient().auth.getSession();
 
   if (error || !data.session) {
     if (error) {

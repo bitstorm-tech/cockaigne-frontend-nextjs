@@ -1,8 +1,10 @@
 import UserHeader from "@/components/user/UserHeader";
 import UserTabs from "@/components/user/UserTabs";
-import { createSupabaseServerClient } from "@/lib/supabase/supabase-client-server";
+import { getSupabaseServerClient } from "@/lib/supabase/supabase-client-server";
 
 export default async function UserPage() {
+  let value = "Original";
+
   return (
     <>
       <UserHeader username={await getUsername()} />
@@ -12,7 +14,7 @@ export default async function UserPage() {
 }
 
 async function getUsername(): Promise<string> {
-  const { data, error } = await createSupabaseServerClient().from("accounts").select("username").single();
+  const { data, error } = await getSupabaseServerClient().from("accounts").select("username").single();
 
   if (error) {
     console.error("ERROR: can't get username:", error.message);

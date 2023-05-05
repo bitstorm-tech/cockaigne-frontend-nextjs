@@ -1,6 +1,6 @@
-import { AuthError } from "@supabase/supabase-js";
+import { AuthError, PostgrestError } from "@supabase/supabase-js";
 
-type AnyError = AuthError | null;
+type AnyError = AuthError | PostgrestError | null;
 
 export function logError<T>(error: AnyError, message = "", returnValue?: T): T | undefined {
   if (error) {

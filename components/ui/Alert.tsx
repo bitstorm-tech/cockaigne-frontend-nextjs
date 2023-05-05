@@ -1,19 +1,18 @@
+"use client";
+
 import Button from "@/components/ui/Button";
 import WarningIcon from "@/components/ui/icons/WarningIcon";
 
-export default function Alert({
-  show,
-  children,
-  onConfirm,
-  warning = true
-}: {
+type AlertProps = {
   show: boolean;
   children: React.ReactNode;
   warning?: boolean;
   onConfirm: () => void;
-}) {
+};
+
+export default function Alert({ show, onConfirm, children, warning = true }: AlertProps) {
   if (!show) {
-    return <></>;
+    return;
   }
 
   return (
