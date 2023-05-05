@@ -12,7 +12,7 @@ type AlertProps = {
 
 export default function Alert({ show, onConfirm, children, warning = true }: AlertProps) {
   if (!show) {
-    return;
+    return null;
   }
 
   return (

@@ -61,7 +61,6 @@ export default function Settings({ isDealer, account }: SettingsProps) {
         </Button>
         <Button onClick={() => router.push("/")}>Abbrechen</Button>
       </div>
-      {/* @ts-expect-error Server Component */}
       <Alert show={errorMessage.length > 0} onConfirm={() => setErrorMessage("")}>
         {errorMessage}
       </Alert>
