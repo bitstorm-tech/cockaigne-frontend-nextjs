@@ -1,3 +1,4 @@
+import { useSupabase } from "@/components/supabase/supabase-provider";
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import Textarea from "@/components/ui/Textarea";
@@ -15,9 +16,10 @@ export default function ReportDealModal({ show, deal, onClose }: Props) {
   const [loading, setLoading] = useState(true);
   const [reason, setReason] = useState("");
   const [alreadyReported, setAlreadyReported] = useState(false);
+  const { session } = useSupabase();
 
   async function open() {
-    const report = await getReport(deal.id!);
+    const report = await getReport(deal.id!, session?.user.id!);
     if (report) {
       setReason(report.reason);
       setAlreadyReported(true);
@@ -26,7 +28,7 @@ export default function ReportDealModal({ show, deal, onClose }: Props) {
   }
 
   async function save() {
-    saveReport(deal.id!, reason).then();
+    await saveReport(deal.id!, session?.user.id!, reason);
     onClose();
   }
 

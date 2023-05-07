@@ -1,5 +1,5 @@
+import ReportDealModal from "@/app/user/ReportDealModal";
 import DealDetailsContainer from "@/components/deal/DealDetailsContainer";
-import ReportDealModal from "@/components/deal/ReportDealModal";
 import LikeIcon from "@/components/ui/icons/LikeIcon";
 import ReportIcon from "@/components/ui/icons/ReportIcon";
 import { toggleLike } from "@/lib/supabase/deal-service";
