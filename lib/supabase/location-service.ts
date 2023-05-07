@@ -1,5 +1,5 @@
 import { addressToShortString, getAddress } from "@/lib/geo/address-service";
-import { Position, centerOfGermany, toPostGisPoint } from "@/lib/geo/geo.types";
+import { centerOfGermany, Position, toPostGisPoint } from "@/lib/geo/geo.types";
 import { getUserId } from "@/lib/supabase/auth-service";
 import { DealFilter } from "@/lib/supabase/deal-service";
 import { Location } from "@/lib/supabase/public-types";
@@ -50,8 +50,7 @@ export async function saveLocation(location: Position) {
   await supabase.from("accounts").update({ location: point }).eq("id", userId);
 }
 
-export async function createFilterByCurrentLocationAndSelectedCategories(): Promise<DealFilter> {
-  const userId = await getUserId();
+export async function createFilterByCurrentLocationAndSelectedCategories(userId: string): Promise<DealFilter> {
   const { error, data } = await supabase.from("accounts").select("search_radius, location").eq("id", userId).single();
 
   if (error) {

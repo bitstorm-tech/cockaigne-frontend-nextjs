@@ -1,12 +1,18 @@
 "use client";
+import UserDealList from "@/app/user/UserDealList";
 import EmptyContent from "@/components/ui/EmptyContent";
 import FireIcon from "@/components/ui/icons/FireIcon";
 import HeartIcon from "@/components/ui/icons/HeartIcon";
 import StarIcon from "@/components/ui/icons/StarIcon";
+import { ActiveDeal } from "@/lib/supabase/public-types";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function UserTabs() {
+type Props = {
+  deals: ActiveDeal[];
+};
+
+export default function UserTabs({ deals }: Props) {
   const [tabIndex, setTabIndex] = useState(0);
   return (
     <>
@@ -21,7 +27,7 @@ export default function UserTabs() {
           <HeartIcon outline={tabIndex !== 2} />
         </button>
       </div>
-      {/*{tabIndex === 0 && <UserDealList deals={deals()} emptyContent={emptyContent} />}*/}
+      {tabIndex === 0 && <UserDealList deals={deals} emptyContent={emptyContent} />}
       {/*{tabIndex === 1 && <UserHotDealList />}*/}
       {/*{tabIndex === 2 && <UserFavoriteDealerList />}*/}
     </>

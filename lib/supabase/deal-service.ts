@@ -206,15 +206,14 @@ export async function toggleHotDeal(dealId: string): Promise<ActiveDeal | null> 
   return result.data;
 }
 
-export async function getTopDeals(limit: number): Promise<ActiveDeal[]> {
-  const filter = await createFilterByCurrentLocationAndSelectedCategories();
+export async function getTopDeals(userId: string, limit: number): Promise<ActiveDeal[]> {
+  const filter = await createFilterByCurrentLocationAndSelectedCategories(userId);
   filter.limit = limit;
 
   return await getDealsByFilter(filter);
 }
 
-export async function getHotDeals(): Promise<ActiveDeal[]> {
-  const userId = await getUserId();
+export async function getHotDeals(userId: string): Promise<ActiveDeal[]> {
   const hotDealsResult = await supabase.from("hot_deals").select().eq("user_id", userId);
 
   if (hotDealsResult.error) {

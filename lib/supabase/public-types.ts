@@ -32,4 +32,6 @@ export type GetActiveDealsWithinExtentFunctionArguments =
   Database["public"]["Functions"]["get_active_deals_within_extent"]["Args"];
 export type Like = Database["public"]["Tables"]["likes"]["Row"];
 
+export type FutureActivePastDeal = FutureDeal | ActiveDeal | PastDeal;
+
 export type Location = { coordinates: number[] };
