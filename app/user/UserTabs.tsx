@@ -1,18 +1,23 @@
 "use client";
 import UserDealList from "@/app/user/UserDealList";
+import UserFavoriteDealerList from "@/app/user/UserFavoriteDealerList";
+import UserHotDealList from "@/app/user/UserHotDealList";
 import EmptyContent from "@/components/ui/EmptyContent";
 import FireIcon from "@/components/ui/icons/FireIcon";
 import HeartIcon from "@/components/ui/icons/HeartIcon";
 import StarIcon from "@/components/ui/icons/StarIcon";
 import { ActiveDeal } from "@/lib/supabase/public-types";
+import { Session } from "@/lib/supabase/supabase-client-server";
 import Link from "next/link";
 import { useState } from "react";
 
 type Props = {
+  session?: Session;
   deals: ActiveDeal[];
+  hotDeals: ActiveDeal[];
 };
 
-export default function UserTabs({ deals }: Props) {
+export default function UserTabs({ session, deals, hotDeals }: Props) {
   const [tabIndex, setTabIndex] = useState(0);
   return (
     <>
@@ -28,8 +33,8 @@ export default function UserTabs({ deals }: Props) {
         </button>
       </div>
       {tabIndex === 0 && <UserDealList deals={deals} emptyContent={emptyContent} />}
-      {/*{tabIndex === 1 && <UserHotDealList />}*/}
-      {/*{tabIndex === 2 && <UserFavoriteDealerList />}*/}
+      {tabIndex === 1 && <UserHotDealList hotDeals={hotDeals} isLoggedIn={!!session} />}
+      {tabIndex === 2 && <UserFavoriteDealerList isLoggedIn={!!session} />}
     </>
   );
 }

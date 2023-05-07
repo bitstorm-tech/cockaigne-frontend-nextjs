@@ -1,8 +1,8 @@
+import DealsBadge from "@/app/user/DealsBadge";
+import FavoriteDealerBadge from "@/app/user/FavoriteDealerBadge";
+import HotsBadge from "@/app/user/HotsBadge";
+import ProfileImage from "@/app/user/ProfileImage";
 import LocationIcon from "@/components/ui/icons/LocationIcon";
-import DealsBadge from "@/components/user/DealsBadge";
-import FavoriteDealerBadge from "@/components/user/FavoriteDealerBadge";
-import HotsBadge from "@/components/user/HotsBadge";
-import ProfileImage from "@/components/user/ProfileImage";
 
 export default function UserHeader({ username = "", address = [] }) {
   return (
