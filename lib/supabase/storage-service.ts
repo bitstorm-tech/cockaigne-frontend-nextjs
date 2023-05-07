@@ -27,8 +27,6 @@ export async function saveImage(file: File, bucket: string, filename: string, fo
 }
 
 export async function saveProfileImage(userId: string, image: File): Promise<string | undefined> {
-  // const userId = await getUserId();
-
   if (!userId) {
     console.error("Can't save profile image -> unknown user");
     return;

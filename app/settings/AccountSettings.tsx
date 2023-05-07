@@ -1,6 +1,7 @@
 import Alert from "@/components/ui/Alert";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import Toast from "@/components/ui/Toast";
 import { updateAccount } from "@/lib/supabase/account-service";
 import { Account } from "@/lib/supabase/public-types";
 import Link from "next/link";
@@ -10,6 +11,7 @@ export default function AccountSettings({ account }: { account: Account }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [saving, setSaving] = useState(false);
   const [accountCopy, setAccountCopy] = useState({ ...account });
+  const [showToast, setShowToast] = useState(false);
 
   async function changePassword() {}
 
@@ -27,6 +29,7 @@ export default function AccountSettings({ account }: { account: Account }) {
     }
 
     setSaving(false);
+    setShowToast(true);
   }
 
   function confirmError() {
@@ -56,6 +59,9 @@ export default function AccountSettings({ account }: { account: Account }) {
       <Alert show={errorMessage.length > 0} onConfirm={confirmError}>
         {errorMessage}
       </Alert>
+      <Toast show={showToast} onTimout={() => setShowToast(false)}>
+        Daten erfolgreich gespeichert
+      </Toast>
     </section>
   );
 }

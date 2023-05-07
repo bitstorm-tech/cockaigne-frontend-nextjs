@@ -1,4 +1,3 @@
-import { uniqueId } from "lodash";
 import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import { Simulate } from "react-dom/test-utils";
 import input = Simulate.input;
@@ -18,7 +17,7 @@ type InputProps = {
 };
 
 export default function Input({
-  label = "",
+  label,
   centerText,
   letterSpacing,
   type = "text",
@@ -30,37 +29,29 @@ export default function Input({
   onEnter = () => {},
   onChange = (_: string) => {}
 }: InputProps) {
-  const id = uniqueId("input-");
-
   function handleKeyPress(event: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) {
     if (event.key === "Enter") {
       onEnter!();
     }
   }
 
-  // @ts-ignore
-  function handleInput(event) {
-    value = event.currentTarget.value;
-    onChange(event.currentTarget.value);
-  }
-
   return (
     <div className="form-control">
-      <label className="label" htmlFor={id}>
+      <label className="label" htmlFor={label}>
         <span className="label-text text-xs">{label}</span>
       </label>
       <input
         className={`input-bordered input focus:border-primary focus:outline-none ${centerText && "text-center"} ${
           letterSpacing && "tracking-[0.5rem]"
         }`}
-        id={id}
+        id={label}
         type={type}
         placeholder={placeholder}
         value={value}
         min={min}
         disabled={disabled}
         maxLength={maxlength}
-        onInput={handleInput}
+        onInput={(e) => onChange(e.currentTarget.value)}
         onKeyDown={handleKeyPress}
       />
     </div>

@@ -26,7 +26,11 @@ export default function UserSettings({ account, profileImageUrl }: UserSettingsP
           Profilbild
         </button>
       </div>
-      {tabIndex === 0 ? <AccountSettings account={account} /> : <ProfileImageSettings profileImageUrl={profileImageUrl} />}
+      {tabIndex === 0 ? (
+        <AccountSettings account={account} />
+      ) : (
+        <ProfileImageSettings profileImageUrl={profileImageUrl} userId={account.id} />
+      )}
     </>
   );
 }
