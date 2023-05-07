@@ -1,5 +1,4 @@
 import Button from "@/components/ui/Button";
-import Image from "next/image";
 import { useRef, useState } from "react";
 
 type ImagePickerProps = {
@@ -41,7 +40,7 @@ export default function ImagePicker({
       </Button>
       <input ref={fileInput} onChange={pictureSelected} type="file" hidden />
       {imagePreview && !hidePreview && (
-        <Image loading="lazy" src={imagePreview} alt="Gewähltes Bild" className="w-screen self-center md:w-2/3" />
+        <img loading="lazy" src={imagePreview} alt="Gewähltes Bild" className="w-screen self-center md:w-2/3" />
       )}
     </>
   );

@@ -7,7 +7,7 @@ export function getSupabaseServerClient() {
 }
 
 export interface Session {
-  userId?: string;
+  userId: string;
   isDealer: boolean;
 }
 

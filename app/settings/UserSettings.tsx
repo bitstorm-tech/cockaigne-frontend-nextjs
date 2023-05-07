@@ -1,31 +1,20 @@
 "use client";
-import Button from "@/components/ui/Button";
-import ImagePicker from "@/components/ui/ImagePicker";
-import Input from "@/components/ui/Input";
+import AccountSettings from "@/app/settings/AccountSettings";
+import ProfileImageSettings from "@/app/settings/ProfileImageSettings";
 import { Account } from "@/lib/supabase/public-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type UserSettingsProps = {
   account: Account;
-  onProfileImageChange: (file: File) => void;
+  profileImageUrl: string;
 };
 
-export default function UserSettings({ account, onProfileImageChange }: UserSettingsProps) {
+export default function UserSettings({ account, profileImageUrl }: UserSettingsProps) {
   const [tabIndex, setTabIndex] = useState(0);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState("");
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(profileImageUrl);
   const [username, setUsername] = useState(account.username);
 
-  async function changePassword() {}
-
-  function handleProfileImageChange(image: File, imageUrl: string) {
-    setImagePreviewUrl(imageUrl);
-    onProfileImageChange(image);
-  }
-
-  async function notify() {
-    await Notification.requestPermission();
-    new Notification("Hallo Cockaigne User!");
-  }
+  useEffect(() => setUsername(account.username), [account]);
 
   return (
     <>
@@ -37,20 +26,7 @@ export default function UserSettings({ account, onProfileImageChange }: UserSett
           Profilbild
         </button>
       </div>
-      {tabIndex === 0 ? (
-        <>
-          <Input label="Benutzername" value={username} onChange={setUsername} />
-          <Input label="E-Mail" value={account.email} disabled />
-          <Button onClick={changePassword}>Passwort ändern</Button>
-          <Button onClick={notify}>Notification Test</Button>
-        </>
-      ) : (
-        <ImagePicker
-          imagePreviewUrl={imagePreviewUrl}
-          onImageSelected={handleProfileImageChange}
-          buttonText="Profilbild ändern"
-        />
-      )}
+      {tabIndex === 0 ? <AccountSettings account={account} /> : <ProfileImageSettings profileImageUrl={profileImageUrl} />}
     </>
   );
 }

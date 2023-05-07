@@ -3,24 +3,45 @@ import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import { Simulate } from "react-dom/test-utils";
 import input = Simulate.input;
 
+type InputProps = {
+  label?: string;
+  centerText?: boolean;
+  letterSpacing?: boolean;
+  type?: string;
+  placeholder?: string;
+  value?: string;
+  min?: string;
+  disabled?: boolean;
+  maxlength?: number;
+  onEnter?: () => void;
+  onChange?: (_: string) => void;
+};
+
 export default function Input({
   label = "",
-  centerText = false,
-  letterSpacing = false,
+  centerText,
+  letterSpacing,
   type = "text",
   placeholder = "",
   value = "",
   min = "",
-  disabled = false,
+  disabled,
   maxlength = -1,
   onEnter = () => {},
-  onChange = (_: string) => {},
-  id = uniqueId("input-")
-}) {
-  function onKeyPress(event: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) {
+  onChange = (_: string) => {}
+}: InputProps) {
+  const id = uniqueId("input-");
+
+  function handleKeyPress(event: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) {
     if (event.key === "Enter") {
       onEnter!();
     }
+  }
+
+  // @ts-ignore
+  function handleInput(event) {
+    value = event.currentTarget.value;
+    onChange(event.currentTarget.value);
   }
 
   return (
@@ -39,8 +60,8 @@ export default function Input({
         min={min}
         disabled={disabled}
         maxLength={maxlength}
-        onInput={(event) => onChange!(event.currentTarget.value)}
-        onKeyDown={onKeyPress}
+        onInput={handleInput}
+        onKeyDown={handleKeyPress}
       />
     </div>
   );

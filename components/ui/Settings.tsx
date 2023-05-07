@@ -1,7 +1,5 @@
 "use client";
-import UserSettings from "@/app/settings/UserSettings";
 import Alert from "@/components/ui/Alert";
-import Button from "@/components/ui/Button";
 import { updateAccount } from "@/lib/supabase/account-service";
 import { Account } from "@/lib/supabase/public-types";
 import { saveProfileImage } from "@/lib/supabase/storage-service";
@@ -9,20 +7,27 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type SettingsProps = {
-  isDealer: boolean;
   account: Account;
+  profileImageUrl: string;
 };
 
-export default function Settings({ isDealer, account }: SettingsProps) {
+export default function Settings({ account, profileImageUrl }: SettingsProps) {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [saving, setSaving] = useState(false);
   const [newProfileImageFile, setNewProfileImageFile] = useState<File>();
+  // const [accountCopy, setAccountCopy] = useState(account);
+  let accountCopy = { ...account };
+
+  // useEffect(() => {
+  //   console.log("USE EFFECT!!!!");
+  //   setAccountCopy(account);
+  // }, [account]);
 
   async function save() {
     setSaving(true);
     await saveImage();
-    const error = await updateAccount(account);
+    const error = await updateAccount(accountCopy);
 
     if (error) {
       setErrorMessage(error);
@@ -36,7 +41,7 @@ export default function Settings({ isDealer, account }: SettingsProps) {
       return;
     }
 
-    const profileImageUrl = await saveProfileImage(newProfileImageFile);
+    const profileImageUrl = await saveProfileImage(account.id, newProfileImageFile);
 
     if (profileImageUrl) {
       setNewProfileImageFile(undefined);
@@ -46,22 +51,26 @@ export default function Settings({ isDealer, account }: SettingsProps) {
     setErrorMessage("Kann Profilbild gerade nicht speichern");
   }
 
+  function confirmError() {
+    accountCopy = { ...account };
+    // setAccountCopy(account);
+    setErrorMessage("");
+  }
+
   return (
     <section className="flex flex-col gap-4 p-4">
-      <p>{errorMessage}</p>
-      {isDealer ? (
-        // <DealerSettings accountCopy={account} />
-        <h1>Dealer Settings</h1>
-      ) : (
-        <UserSettings account={account} onProfileImageChange={(image) => setNewProfileImageFile(image)} />
-      )}
-      <div className="grid grid-cols-2 gap-4">
-        <Button onClick={save} loading={saving}>
-          Speichern
-        </Button>
-        <Button onClick={() => router.push("/")}>Abbrechen</Button>
-      </div>
-      <Alert show={errorMessage.length > 0} onConfirm={() => setErrorMessage("")}>
+      {/*{account.is_dealer ? (*/}
+      {/*  // <DealerSettings accountCopy={account} />*/}
+      {/*  <h1>Dealer Settings</h1>*/}
+      {/*) : (*/}
+      {/*  <UserSettings*/}
+      {/*    account={accountCopy}*/}
+      {/*    profileImageUrl={profileImageUrl}*/}
+      {/*    onProfileImageChange={(image) => setNewProfileImageFile(image)}*/}
+      {/*    onAccountChange={(account) => (accountCopy = { ...account })}*/}
+      {/*  />*/}
+      {/*)}*/}
+      <Alert show={errorMessage.length > 0} onConfirm={confirmError}>
         {errorMessage}
       </Alert>
     </section>

@@ -9,6 +9,9 @@ import "./globals.css";
 
 const font = Ubuntu({ weight: "300", subsets: ["latin"] });
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata = {
   title: "Cockaigne"
 };

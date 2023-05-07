@@ -26,8 +26,8 @@ export async function saveImage(file: File, bucket: string, filename: string, fo
   console.error("Can't save image:", error.message);
 }
 
-export async function saveProfileImage(image: File): Promise<string | undefined> {
-  const userId = await getUserId();
+export async function saveProfileImage(userId: string, image: File): Promise<string | undefined> {
+  // const userId = await getUserId();
 
   if (!userId) {
     console.error("Can't save profile image -> unknown user");
@@ -69,12 +69,12 @@ export async function getDealerImages(dealerId: string): Promise<string[]> {
   return [];
 }
 
-export async function getProfileImage(params: { id?: string; isDealer?: boolean } = {}): Promise<string> {
-  const userId = params.id || (await getUserId());
+export async function getProfileImage({ userId, isDealer = false }: { userId: string; isDealer?: boolean }): Promise<string> {
+  // const userId = params.id || (await getUserId());
 
   if (!userId) {
     console.error("Can't get profile image -> unknown user -> return default image");
-    return params.isDealer ? DEFAULT_DEALER_PROFILE_IMAGE_URL : DEFAULT_USER_PROFILE_IMAGE_URL;
+    return isDealer ? DEFAULT_DEALER_PROFILE_IMAGE_URL : DEFAULT_USER_PROFILE_IMAGE_URL;
   }
 
   const { data } = await supabase.storage.from(BUCKET_PROFILE_IMAGES).list(userId);
@@ -84,7 +84,7 @@ export async function getProfileImage(params: { id?: string; isDealer?: boolean 
     return supabase.storage.from(BUCKET_PROFILE_IMAGES).getPublicUrl(userId + "/" + filename).data.publicUrl;
   }
 
-  return params.isDealer ? DEFAULT_DEALER_PROFILE_IMAGE_URL : DEFAULT_USER_PROFILE_IMAGE_URL;
+  return isDealer ? DEFAULT_DEALER_PROFILE_IMAGE_URL : DEFAULT_USER_PROFILE_IMAGE_URL;
 }
 
 export async function getDealImages(dealId: string, dealerId: string): Promise<string[]> {

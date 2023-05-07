@@ -55,15 +55,12 @@ export async function getAccount(): Promise<Account | undefined> {
 }
 
 export async function updateAccount(update: AccountUpdate): Promise<string | undefined> {
-  console.log("Update account:", update);
-  const id = await getUserId();
-
-  if (!id) {
+  if (!update.id) {
     console.error("Can't update account -> unknown user id");
     return;
   }
 
-  const { error } = await supabase.from("accounts").update(update).eq("id", id);
+  const { error } = await supabase.from("accounts").update(update).eq("id", update.id);
 
   if (error) {
     console.error("Can't update account:", error.message);
