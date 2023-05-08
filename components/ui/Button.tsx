@@ -1,3 +1,14 @@
+type Props = {
+  loading?: boolean;
+  warning?: boolean;
+  small?: boolean;
+  circle?: boolean;
+  error?: boolean;
+  disabled?: boolean;
+  onClick?: () => void;
+  children: React.ReactNode;
+};
+
 export default function Button({
   loading = false,
   warning = false,
@@ -6,8 +17,8 @@ export default function Button({
   error = false,
   disabled = false,
   onClick = () => {},
-  children = ""
-}) {
+  children
+}: Props) {
   return (
     <button
       disabled={disabled}

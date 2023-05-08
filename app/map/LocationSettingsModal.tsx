@@ -36,7 +36,7 @@ export default function LocationSettingsModal({ show, onClose }: Props) {
 
   async function selectAddress(searchResult: SearchResult) {
     setAddress(searchResult.address);
-    setLocation(searchResult.location);
+    // setLocation(searchResult.location);
     await saveLocation(searchResult.location);
   }
 
