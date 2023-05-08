@@ -5,9 +5,11 @@ import Toast from "@/components/ui/Toast";
 import { updateAccount } from "@/lib/supabase/account-service";
 import { Account } from "@/lib/supabase/public-types";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function AccountSettings({ account }: { account: Account }) {
+  const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [saving, setSaving] = useState(false);
   const [accountCopy, setAccountCopy] = useState({ ...account });
@@ -30,6 +32,7 @@ export default function AccountSettings({ account }: { account: Account }) {
 
     setSaving(false);
     setShowToast(true);
+    router.refresh();
   }
 
   function confirmError() {
